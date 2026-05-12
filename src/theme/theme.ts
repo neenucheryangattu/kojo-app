@@ -1,0 +1,43 @@
+export const theme = {
+  colors: {
+    primary: '#3461FF',
+    primarySoft: '#E8EEFF',
+    background: '#FFFFFF',
+    surface: '#F5F7FB',
+    headerTint: '#E8F4FC',
+    textPrimary: '#1A1A1A',
+    textSecondary: '#8E8E93',
+    textLight: '#FFFFFF',
+    inputBorder: '#E5E7EB',
+    inputBackground: '#F9FAFB',
+    success: '#34C759',
+    warning: '#FF9800',
+    error: '#F44336',
+    chartLine: '#3461FF',
+    unreadDot: '#34C759',
+  },
+  spacing: {
+    xs: 4,
+    s: 8,
+    m: 16,
+    l: 24,
+    xl: 32,
+    xxl: 48,
+  },
+  borderRadius: {
+    s: 8,
+    m: 12,
+    l: 16,
+    xl: 20,
+    round: 999,
+  },
+  shadows: {
+    card: {
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.06,
+      shadowRadius: 12,
+      elevation: 4,
+    },
+  },
+};
