@@ -13,6 +13,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { getProfile } from '../api/profileApi';
 import { theme } from '../theme/theme';
 import { useAuth } from '../context/AuthContext';
@@ -74,11 +75,11 @@ export const ProfileScreen = () => {
       <View style={styles.headerStrip}>
         <View style={[styles.header, Platform.OS === 'android' ? { paddingTop: 4 } : null]}>
           <TouchableOpacity hitSlop={12}>
-            <Ionicons name="chevron-back" size={26} color={theme.colors.textPrimary} />
+            <Ionicons name="chevron-back" size={theme.iconSizes.m} color={theme.colors.textPrimary} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Profile</Text>
           <TouchableOpacity hitSlop={12}>
-            <Ionicons name="chevron-forward" size={26} color={theme.colors.textPrimary} />
+            <Ionicons name="chevron-forward" size={theme.iconSizes.m} color={theme.colors.textPrimary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -102,7 +103,7 @@ export const ProfileScreen = () => {
         <View style={styles.card}>
           <View style={styles.infoRow}>
             <View style={styles.iconBubble}>
-              <Ionicons name="mail-outline" size={18} color={theme.colors.primary} />
+              <Ionicons name="mail-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
             </View>
             <View style={styles.infoText}>
               <Text style={styles.infoLabel}>Email</Text>
@@ -112,7 +113,7 @@ export const ProfileScreen = () => {
           <View style={styles.rowDivider} />
           <View style={styles.infoRow}>
             <View style={styles.iconBubble}>
-              <Ionicons name="call-outline" size={18} color={theme.colors.primary} />
+              <Ionicons name="call-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
             </View>
             <View style={styles.infoText}>
               <Text style={styles.infoLabel}>Phone</Text>
@@ -122,7 +123,7 @@ export const ProfileScreen = () => {
           <View style={styles.rowDivider} />
           <View style={[styles.infoRow, { marginBottom: 0 }]}>
             <View style={styles.iconBubble}>
-              <Ionicons name="calendar-outline" size={18} color={theme.colors.primary} />
+              <Ionicons name="calendar-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
             </View>
             <View style={styles.infoText}>
               <Text style={styles.infoLabel}>Date of Birth</Text>
@@ -137,7 +138,7 @@ export const ProfileScreen = () => {
             <View style={styles.toggleTextContainer}>
               <View style={styles.toggleHeader}>
                 <View style={styles.iconBubble}>
-                  <Ionicons name="scan-outline" size={18} color={theme.colors.primary} />
+                  <Ionicons name="scan-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
                 </View>
                 <Text style={styles.toggleLabel}>Face ID</Text>
               </View>
@@ -155,7 +156,7 @@ export const ProfileScreen = () => {
             <View style={styles.toggleTextContainer}>
               <View style={styles.toggleHeader}>
                 <View style={styles.iconBubble}>
-                  <Ionicons name="finger-print-outline" size={18} color={theme.colors.primary} />
+                  <Ionicons name="finger-print-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
                 </View>
                 <Text style={styles.toggleLabel}>Fingerprint</Text>
               </View>
@@ -175,7 +176,7 @@ export const ProfileScreen = () => {
           <View style={styles.appearanceRow}>
             <View style={styles.toggleHeader}>
               <View style={styles.iconBubble}>
-                <Ionicons name="moon-outline" size={18} color={theme.colors.primary} />
+                <Ionicons name="moon-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
               </View>
               <Text style={styles.toggleLabel}>App theme</Text>
             </View>
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.xl,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: theme.fontSizes.l,
     fontWeight: '700',
     color: theme.colors.textPrimary,
   },
@@ -219,8 +220,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.xl,
     paddingBottom: theme.spacing.xxl + 32,
     backgroundColor: theme.colors.surface,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: theme.borderRadius.l,
+    borderTopRightRadius: theme.borderRadius.l,
     paddingTop: theme.spacing.l,
     marginTop: -6,
     flexGrow: 1,
@@ -232,14 +233,14 @@ const styles = StyleSheet.create({
   },
   avatarRing: {
     padding: 4,
-    borderRadius: 64,
+    borderRadius: wp('16%'),
     backgroundColor: theme.colors.primarySoft,
     marginBottom: theme.spacing.m,
   },
   avatarCircle: {
-    width: 104,
-    height: 104,
-    borderRadius: 52,
+    width: wp('26%'),
+    height: wp('26%'),
+    borderRadius: wp('13%'),
     backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
@@ -247,18 +248,18 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.background,
   },
   avatarInitial: {
-    fontSize: 40,
+    fontSize: theme.fontSizes.xxl,
     fontWeight: '700',
     color: theme.colors.textLight,
   },
   profileName: {
-    fontSize: 22,
+    fontSize: theme.fontSizes.xl,
     fontWeight: '700',
     color: theme.colors.textPrimary,
     letterSpacing: -0.3,
   },
   sectionHeading: {
-    fontSize: 13,
+    fontSize: theme.fontSizes.xs,
     fontWeight: '700',
     color: theme.colors.textSecondary,
     marginBottom: theme.spacing.s,
@@ -287,7 +288,7 @@ const styles = StyleSheet.create({
     height: StyleSheet.hairlineWidth,
     backgroundColor: theme.colors.inputBorder,
     marginVertical: theme.spacing.s,
-    marginLeft: 48,
+    marginLeft: wp('12%'),
   },
   infoRow: {
     flexDirection: 'row',
@@ -296,9 +297,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   iconBubble: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
+    width: wp('9%'),
+    height: wp('9%'),
+    borderRadius: wp('2.5%'),
     backgroundColor: theme.colors.primarySoft,
     justifyContent: 'center',
     alignItems: 'center',
@@ -309,13 +310,13 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   infoLabel: {
-    fontSize: 15,
+    fontSize: theme.fontSizes.s,
     fontWeight: '600',
     color: theme.colors.textPrimary,
     marginBottom: 2,
   },
   infoValue: {
-    fontSize: 13,
+    fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     fontWeight: '500',
   },
@@ -335,24 +336,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   toggleLabel: {
-    fontSize: 15,
+    fontSize: theme.fontSizes.s,
     fontWeight: '600',
     color: theme.colors.textPrimary,
   },
   toggleDescription: {
-    fontSize: 12,
+    fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     marginTop: 6,
-    marginLeft: 44,
+    marginLeft: wp('11%'),
     lineHeight: 17,
   },
   appearanceHint: {
-    fontSize: 13,
+    fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     fontWeight: '500',
   },
   errorText: {
     color: theme.colors.error,
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
   },
 });

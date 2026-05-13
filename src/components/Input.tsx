@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet, TextInputProps } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { theme } from '../theme/theme';
 
 interface InputProps extends TextInputProps {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.m,
   },
   label: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textPrimary,
     marginBottom: theme.spacing.xs,
     fontWeight: '500',
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderRadius: theme.borderRadius.l,
     paddingHorizontal: theme.spacing.m,
-    minHeight: 52,
+    minHeight: hp('6.5%'),
   },
   leftComponent: {
     marginRight: theme.spacing.s,
@@ -52,9 +53,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
     color: theme.colors.textPrimary,
-    minHeight: 48,
+    minHeight: hp('6%'),
     paddingVertical: 0,
   },
   inputError: {
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: theme.colors.error,
-    fontSize: 12,
+    fontSize: theme.fontSizes.xs,
     marginTop: theme.spacing.xs,
   },
 });

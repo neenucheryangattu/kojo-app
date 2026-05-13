@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -13,15 +13,25 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { getMessages } from '../api/messagesApi';
 import { theme } from '../theme/theme';
 import { Button } from '../components/Button';
 
 export const MessagesScreen = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const { data: messages, isLoading, error } = useQuery({
     queryKey: ['messages'],
     queryFn: getMessages,
   });
+
+  const filteredMessages = useMemo(() => {
+    if (!messages || !searchTerm.trim()) return messages || [];
+    return messages.filter(msg =>
+      msg.sender.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      msg.snippet.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [messages, searchTerm]);
 
   if (isLoading) {
     return (
@@ -44,11 +54,11 @@ export const MessagesScreen = () => {
       <View style={styles.headerSection}>
         <View style={[styles.header, Platform.OS === 'android' ? { paddingTop: 4 } : null]}>
           <TouchableOpacity hitSlop={12} style={styles.notifBtn}>
-            <Ionicons name="chevron-back" size={24} color={theme.colors.textPrimary}  />
+            <Ionicons name="chevron-back" size={theme.iconSizes.m} color={theme.colors.textPrimary}  />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Messages</Text>
           <TouchableOpacity style={styles.notifBtn} hitSlop={12}>
-            <Ionicons name="chevron-forward" size={24} color={theme.colors.textPrimary} />
+            <Ionicons name="chevron-forward" size={theme.iconSizes.m} color={theme.colors.textPrimary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -60,17 +70,24 @@ export const MessagesScreen = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.searchRow}>
-            <Ionicons name="search" size={20} color={theme.colors.textSecondary} style={styles.searchIconLeft} />
+            <Ionicons name="search" size={theme.iconSizes.s} color={theme.colors.textSecondary} style={styles.searchIconLeft} />
             <TextInput
               style={styles.searchInput}
               placeholder="Search Your messages"
               placeholderTextColor={theme.colors.textSecondary}
+              value={searchTerm}
+              onChangeText={setSearchTerm}
             />
+            {searchTerm.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchTerm('')} style={styles.clearButton}>
+                <Ionicons name="close-circle" size={theme.iconSizes.s} color={theme.colors.textSecondary} />
+              </TouchableOpacity>
+            )}
           </View>
 
           <Text style={styles.dateLabel}>Today</Text>
 
-          {messages.map((msg) => (
+          {filteredMessages.map((msg) => (
             <TouchableOpacity key={msg.id} style={styles.messageCard} activeOpacity={0.7}>
               <View style={styles.avatar}>
                 <Text style={styles.avatarLetter}>{msg.sender.charAt(0)}</Text>
@@ -92,6 +109,14 @@ export const MessagesScreen = () => {
             </TouchableOpacity>
           ))}
 
+          {filteredMessages.length === 0 && searchTerm.trim() && (
+            <View style={styles.noResultsContainer}>
+              <Ionicons name="search" size={theme.iconSizes.xl} color={theme.colors.textSecondary} />
+              <Text style={styles.noResultsText}>No messages found for "{searchTerm}"</Text>
+              <Text style={styles.noResultsSubtext}>Try searching with different keywords</Text>
+            </View>
+          )}
+
           <Button title="Start a new chat" style={styles.newChatButton} />
         </ScrollView>
       </View>
@@ -110,9 +135,9 @@ const styles = StyleSheet.create({
     paddingBottom: theme.spacing.s,
   },
   notifBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: wp('11%'),
+    height: wp('11%'),
+    borderRadius: wp('5.5%'),
     backgroundColor: 'rgba(255,255,255,0.6)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -127,8 +152,8 @@ const styles = StyleSheet.create({
   listSection: {
     flex: 1,
     backgroundColor: theme.colors.surface,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: theme.borderRadius.l,
+    borderTopRightRadius: theme.borderRadius.l,
     overflow: 'hidden',
   },
   header: {
@@ -140,7 +165,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: theme.fontSizes.l,
     fontWeight: '700',
     color: theme.colors.textPrimary,
   },
@@ -160,9 +185,12 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: 15,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textPrimary,
     paddingVertical: theme.spacing.s,
+  },
+  clearButton: {
+    marginLeft: theme.spacing.s,
   },
   listContent: {
     flexGrow: 1,
@@ -172,7 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   dateLabel: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     fontWeight: '600',
     color: theme.colors.textSecondary,
     marginBottom: theme.spacing.m,
@@ -187,16 +215,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: wp('12%'),
+    height: wp('12%'),
+    borderRadius: wp('6%'),
     backgroundColor: theme.colors.primarySoft,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: theme.spacing.m,
   },
   avatarLetter: {
-    fontSize: 18,
+    fontSize: theme.fontSizes.s,
     fontWeight: '700',
     color: theme.colors.primary,
   },
@@ -213,7 +241,7 @@ const styles = StyleSheet.create({
   },
   senderName: {
     flex: 1,
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
     fontWeight: '600',
     color: theme.colors.textPrimary,
   },
@@ -227,30 +255,48 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   time: {
-    fontSize: 12,
+    fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     fontWeight: '500',
   },
   statusDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: wp('2%'),
+    height: wp('2%'),
+    borderRadius: wp('1%'),
     backgroundColor: theme.colors.unreadDot,
   },
   statusDotPlaceholder: {
-    width: 8,
-    height: 8,
+    width: wp('2%'),
+    height: wp('2%'),
   },
   snippet: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textSecondary,
     lineHeight: 20,
   },
   newChatButton: {
     marginTop: theme.spacing.l,
   },
+  noResultsContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.xxl,
+  },
+  noResultsText: {
+    fontSize: theme.fontSizes.m,
+    fontWeight: '600',
+    color: theme.colors.textPrimary,
+    marginTop: theme.spacing.m,
+    textAlign: 'center',
+  },
+  noResultsSubtext: {
+    fontSize: theme.fontSizes.s,
+    color: theme.colors.textSecondary,
+    marginTop: theme.spacing.xs,
+    textAlign: 'center',
+  },
   errorText: {
     color: theme.colors.error,
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
   },
 });

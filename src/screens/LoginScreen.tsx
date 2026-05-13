@@ -14,6 +14,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import { theme } from '../theme/theme';
@@ -74,7 +75,7 @@ export const LoginScreen = () => {
   const PhonePrefix = () => (
     <View style={styles.phonePrefixContainer}>
       <Text style={styles.flagText}>🇺🇸</Text>
-      <Ionicons name="chevron-down" size={16} color={theme.colors.textSecondary} style={styles.chevronIcon} />
+      <Ionicons name="chevron-down" size={theme.iconSizes.xs} color={theme.colors.textSecondary} style={styles.chevronIcon} />
       <View style={styles.verticalDivider} />
     </View>
   );
@@ -132,7 +133,7 @@ export const LoginScreen = () => {
             />
 
             <TouchableOpacity style={styles.biometricLoginBtn} activeOpacity={0.7}>
-              <Ionicons name="finger-print-outline" size={18} color={theme.colors.primary} />
+              <Ionicons name="finger-print-outline" size={theme.iconSizes.s} color={theme.colors.primary} />
               <Text style={styles.biometricLoginText}>Use Biometric Login</Text>
             </TouchableOpacity>
 
@@ -186,12 +187,12 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.xxl,
   },
   logoImage: {
-    width: 180,
-    height: 72,
+    width: wp('45%'),
+    height: hp('9%'),
   },
   tagline: {
     marginTop: theme.spacing.xs,
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textSecondary,
     fontWeight: '500',
     letterSpacing: 0.2,
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   flagText: {
-    fontSize: 18,
+    fontSize: theme.fontSizes.s,
   },
   chevronIcon: {
     marginLeft: 4,
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
   },
   verticalDivider: {
     width: 1,
-    height: 24,
+    height: hp('3%'),
     backgroundColor: theme.colors.inputBorder,
     marginRight: 8,
   },
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.xs,
   },
   biometricLoginText: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.primary,
     fontWeight: '600',
     marginLeft: 6,
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.xl,
   },
   keepLoggedText: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textSecondary,
   },
   signupContainer: {
@@ -250,11 +251,11 @@ const styles = StyleSheet.create({
     paddingTop: theme.spacing.l,
   },
   signupText: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textSecondary,
   },
   signupLink: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.primary,
     fontWeight: 'bold',
   },

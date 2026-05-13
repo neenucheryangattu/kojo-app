@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/MainNavigator';
 import { theme } from '../theme/theme';
 import { Ionicons } from '@expo/vector-icons';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Onboarding'>;
 
@@ -35,7 +36,7 @@ export const OnboardingScreen = ({ navigation }: Props) => {
           style={styles.nextButton}
           onPress={() => navigation.navigate('Login')}
         >
-          <Ionicons name="arrow-forward" size={28} color={theme.colors.textLight} />
+          <Ionicons name="arrow-forward" size={theme.iconSizes.m} color={theme.colors.textLight} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: 420,
+    height: hp('52.5%'),
     width: '100%',
     // backgroundColor: theme.colors.primarySoft,
     borderBottomLeftRadius: 140,
@@ -67,15 +68,15 @@ const styles = StyleSheet.create({
   },
   illustrationContainer: {
     width: '100%',
-    maxWidth: 520,
+    maxWidth: wp('100%'),
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1,
   },
   illustrationImage: {
     width: '100%',
-    maxWidth: 520,
-    height: 577,
+    maxWidth: wp('100%'),
+    height: hp('72%'),
     aspectRatio: 501.3132629394531 / 577,
     alignSelf: 'center',
   },
@@ -85,17 +86,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   title: {
-    fontSize: 30,
+    fontSize: theme.fontSizes.title,
     fontWeight: '700',
     color: theme.colors.textPrimary,
     marginBottom: theme.spacing.m,
     letterSpacing: -0.5,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
     lineHeight: 24,
     color: theme.colors.textSecondary,
-    maxWidth: 340,
+    maxWidth: wp('85%'),
   },
   footer: {
     paddingHorizontal: theme.spacing.xl,
@@ -103,9 +104,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   nextButton: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: wp('16%'),
+    height: wp('16%'),
+    borderRadius: wp('8%'),
     backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',

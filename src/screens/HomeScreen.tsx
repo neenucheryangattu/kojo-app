@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Ionicons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { getDashboardData } from '../api/dashboardApi';
 import { useAuth } from '../context/AuthContext';
 import { Gauge } from '../components/Gauge';
@@ -32,7 +33,7 @@ const ActionButton = ({
 }) => (
   <TouchableOpacity style={styles.actionButton} activeOpacity={0.75}>
     <View style={[styles.actionIconContainer, { backgroundColor: bgColor }]}>
-      <Ionicons name={icon} size={22} color={iconColor} />
+      <Ionicons name={icon} size={theme.iconSizes.m} color={iconColor} />
     </View>
     <Text style={styles.actionLabel}>{label}</Text>
   </TouchableOpacity>
@@ -88,7 +89,7 @@ export const HomeScreen = () => {
               <Text style={styles.subtitle}>Your credit is in excellent shape!</Text>
             </View>
             <TouchableOpacity style={styles.notifBtn} hitSlop={12}>
-              <Ionicons name="notifications-outline" size={24} color={theme.colors.textPrimary} />
+              <Ionicons name="notifications-outline" size={theme.iconSizes.m} color={theme.colors.textPrimary} />
             </TouchableOpacity>
           </View>
         </View>
@@ -160,7 +161,7 @@ export const HomeScreen = () => {
           accessibilityRole="button"
           accessibilityLabel="Add"
         >
-          <Ionicons name="add" size={30} color={theme.colors.textLight} />
+          <Ionicons name="add" size={theme.iconSizes.xl} color={theme.colors.textLight} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -198,9 +199,9 @@ const styles = StyleSheet.create({
     paddingRight: theme.spacing.m,
   },
   notifBtn: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: wp('11%'),
+    height: wp('11%'),
+    borderRadius: wp('5.5%'),
     backgroundColor: 'rgba(255,255,255,0.6)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -212,13 +213,13 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
   greeting: {
-    fontSize: 26,
+    fontSize: theme.fontSizes.greeting,
     fontWeight: '700',
     color: theme.colors.textPrimary,
     letterSpacing: -0.5,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textSecondary,
     marginTop: 6,
     fontWeight: '500',
@@ -246,18 +247,18 @@ const styles = StyleSheet.create({
   actionButton: {
     alignItems: 'center',
     width: '23%',
-    maxWidth: 88,
+    maxWidth: wp('22%'),
   },
   actionIconContainer: {
-    width: 54,
-    height: 54,
-    borderRadius: 27,
+    width: wp('13.5%'),
+    height: wp('13.5%'),
+    borderRadius: wp('6.75%'),
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
   },
   actionLabel: {
-    fontSize: 11,
+    fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     textAlign: 'center',
     fontWeight: '500',
@@ -273,7 +274,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   sectionTitle: {
-    fontSize: 17,
+    fontSize: theme.fontSizes.m,
     fontWeight: '700',
     color: theme.colors.textPrimary,
     marginBottom: theme.spacing.s,
@@ -286,9 +287,9 @@ const styles = StyleSheet.create({
   floatingButton: {
     position: 'absolute',
     right: 24,
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+    width: wp('14.5%'),
+    height: wp('14.5%'),
+    borderRadius: wp('7.25%'),
     backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
@@ -298,6 +299,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: theme.colors.error,
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
   },
 });

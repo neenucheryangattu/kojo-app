@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: theme.colors.textLight,
-    fontSize: 16,
+    fontSize: theme.fontSizes.m,
     fontWeight: '600',
   },
 });

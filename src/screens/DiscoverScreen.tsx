@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { theme } from '../theme/theme';
 
 export const DiscoverScreen = () => {
@@ -10,11 +11,11 @@ export const DiscoverScreen = () => {
       <View style={styles.headerStrip}>
         <View style={styles.header}>
           <TouchableOpacity hitSlop={12}>
-            <Ionicons name="menu-outline" size={26} color={theme.colors.textPrimary} />
+            <Ionicons name="menu-outline" size={theme.iconSizes.m} color={theme.colors.textPrimary} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Discover</Text>
           <TouchableOpacity hitSlop={12}>
-            <Ionicons name="notifications-outline" size={24} color={theme.colors.textPrimary} />
+            <Ionicons name="notifications-outline" size={theme.iconSizes.m} color={theme.colors.textPrimary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.s,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: theme.fontSizes.l,
     fontWeight: '700',
     color: theme.colors.textPrimary,
   },
@@ -60,18 +61,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
   },
   placeholderTitle: {
-    fontSize: 18,
+    fontSize: theme.fontSizes.s,
     fontWeight: '700',
     color: theme.colors.textPrimary,
     marginTop: theme.spacing.m,
     textAlign: 'center',
   },
   placeholderCopy: {
-    fontSize: 14,
+    fontSize: theme.fontSizes.s,
     color: theme.colors.textSecondary,
     textAlign: 'center',
     lineHeight: 21,
     marginTop: theme.spacing.s,
-    maxWidth: 280,
+    maxWidth: wp('70%'),
   },
 });

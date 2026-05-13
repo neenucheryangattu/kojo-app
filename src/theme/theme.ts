@@ -1,3 +1,5 @@
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 export const theme = {
   colors: {
     primary: '#3461FF',
@@ -17,27 +19,45 @@ export const theme = {
     unreadDot: '#34C759',
   },
   spacing: {
-    xs: 4,
-    s: 8,
-    m: 16,
-    l: 24,
-    xl: 32,
-    xxl: 48,
+    xs: hp('0.5%'),
+    s: hp('1%'),
+    m: hp('2%'),
+    l: hp('3%'),
+    xl: hp('4%'),
+    xxl: hp('6%'),
   },
   borderRadius: {
-    s: 8,
-    m: 12,
-    l: 16,
-    xl: 20,
+    s: hp('1%'),
+    m: hp('1.5%'),
+    l: hp('2%'),
+    xl: hp('2.5%'),
     round: 999,
   },
   shadows: {
     card: {
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 4 },
+      shadowOffset: { width: 0, height: hp('0.5%') },
       shadowOpacity: 0.06,
-      shadowRadius: 12,
+      shadowRadius: hp('1.5%'),
       elevation: 4,
     },
+  },
+  iconSizes: {
+    xs: wp('3.5%'),
+    s: wp('4.5%'),
+    m: wp('6.5%'),
+    l: wp('13%'),
+    xl: wp('7.5%'),
+  },
+  fontSizes: {
+    xs: wp('3%'),
+    s: wp('3.5%'),
+    m: wp('4%'),
+    l: wp('5%'),
+    xl: wp('5.5%'),
+    xxl: wp('10%'),
+    xxxl: wp('14%'),
+    greeting: wp('6.5%'),
+    title: wp('7.5%'),
   },
 };

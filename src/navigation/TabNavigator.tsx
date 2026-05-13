@@ -8,6 +8,7 @@ import { MessagesScreen } from '../screens/MessagesScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { theme } from '../theme/theme';
 import { useAuth } from '../context/AuthContext';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,9 +19,9 @@ const ProfileTabIcon = ({ focused, color }: { focused: boolean; color: string })
   return (
     <View
       style={{
-        width: 32,
-        height: 32,
-        borderRadius: 16,
+        width: wp('8%'),
+        height: wp('8%'),
+        borderRadius: wp('4%'),
         backgroundColor: focused ? theme.colors.primary : '#E0E0E0',
         justifyContent: 'center',
         alignItems: 'center',
@@ -30,7 +31,7 @@ const ProfileTabIcon = ({ focused, color }: { focused: boolean; color: string })
     >
       <Text
         style={{
-          fontSize: 14,
+          fontSize: theme.fontSizes.s,
           fontWeight: 'bold',
           color: focused ? '#FFFFFF' : '#666666',
         }}
@@ -51,9 +52,9 @@ export const TabNavigator = () => {
           backgroundColor: '#FFFFFF',
           borderTopWidth: 1,
           borderTopColor: '#EDEEF2',
-          height: Platform.OS === 'ios' ? 84 : 68,
-          paddingTop: 8,
-          paddingBottom: Platform.OS === 'ios' ? 28 : 10,
+          height: Platform.OS === 'ios' ? hp('10.5%') : hp('8.5%'),
+          paddingTop: hp('1%'),
+          paddingBottom: Platform.OS === 'ios' ? hp('3.5%') : hp('1.25%'),
         },
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'Profile') {
@@ -72,7 +73,7 @@ export const TabNavigator = () => {
             iconName = 'home-outline';
           }
 
-          return <Ionicons name={iconName} size={28} color={color} />;
+          return <Ionicons name={iconName} size={theme.iconSizes.m} color={color} />;
         },
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: '#A0A0A0',

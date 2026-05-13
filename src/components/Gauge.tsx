@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { theme } from '../theme/theme';
 
 interface GaugeProps {
@@ -18,8 +19,8 @@ const statusColor = (status: string) => {
 };
 
 export const Gauge = ({ score, status, updatedAt, pointsChange }: GaugeProps) => {
-  const size = 280;
-  const strokeWidth = 18;
+  const size = wp('70%');
+  const strokeWidth = wp('4.5%');
   const radius = (size - strokeWidth) / 2;
   const cy = size / 2;
 
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: theme.spacing.m,
-    height: 168,
+    height: hp('21%'),
   },
   textContainer: {
     position: 'absolute',
@@ -75,23 +76,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scoreText: {
-    fontSize: 56,
+    fontSize: theme.fontSizes.xxl,
     fontWeight: '700',
     color: theme.colors.textPrimary,
     letterSpacing: -1,
   },
   statusText: {
-    fontSize: 18,
+    fontSize: theme.fontSizes.s,
     fontWeight: '700',
     marginTop: -4,
   },
   pointsChange: {
-    fontSize: 15,
+    fontSize: theme.fontSizes.s,
     fontWeight: '600',
     marginTop: 2,
   },
   updatedText: {
-    fontSize: 12,
+    fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     marginTop: 8,
   },
