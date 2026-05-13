@@ -11,6 +11,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
+import { Button } from '../components/Button';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -22,7 +23,7 @@ export const ProfileScreen = () => {
   const [faceId, setFaceId] = useState(true);
   const [fingerprint, setFingerprint] = useState(false);
 
-  const { user: authUser } = useAuth();
+  const { user: authUser, signOut } = useAuth();
 
   const { data: profile, isLoading, error } = useQuery({
     queryKey: ['profile'],
@@ -183,6 +184,12 @@ export const ProfileScreen = () => {
             <Text style={styles.appearanceHint}>System default</Text>
           </View>
         </View>
+
+        <Button
+          title="Logout"
+          style={[styles.logoutButton, { backgroundColor: theme.colors.error }]}
+          onPress={signOut}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -351,6 +358,10 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.xs,
     color: theme.colors.textSecondary,
     fontWeight: '500',
+  },
+  logoutButton: {
+    marginTop: theme.spacing.l,
+    marginBottom: theme.spacing.xxl,
   },
   errorText: {
     color: theme.colors.error,
