@@ -1,16 +1,18 @@
 import React from 'react';
-import { Platform, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { HomeScreen } from '../screens/HomeScreen';
 import { DiscoverScreen } from '../screens/DiscoverScreen';
 import { MessagesScreen } from '../screens/MessagesScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { theme } from '../theme/theme';
 import { useAuth } from '../context/AuthContext';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Tab = createBottomTabNavigator();
+const TAB_BAR_CONTENT_HEIGHT = 49;
 
 const ProfileTabIcon = ({ focused, color }: { focused: boolean; color: string }) => {
   const { user } = useAuth();
@@ -43,6 +45,12 @@ const ProfileTabIcon = ({ focused, color }: { focused: boolean; color: string })
 };
 
 export const TabNavigator = () => {
+  const insets = useSafeAreaInsets();
+
+  const tabPaddingTop = theme.spacing.s;
+  const tabPaddingBottom = insets.bottom + theme.spacing.xs;
+  const tabBarHeight = TAB_BAR_CONTENT_HEIGHT + tabPaddingTop + tabPaddingBottom;
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -52,9 +60,9 @@ export const TabNavigator = () => {
           backgroundColor: '#FFFFFF',
           borderTopWidth: 1,
           borderTopColor: '#EDEEF2',
-          height: Platform.OS === 'ios' ? hp('10.5%') : hp('8.5%'),
-          paddingTop: hp('1%'),
-          paddingBottom: Platform.OS === 'ios' ? hp('3.5%') : hp('1.25%'),
+          paddingTop: tabPaddingTop,
+          paddingBottom: tabPaddingBottom,
+          height: tabBarHeight,
         },
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'Profile') {
